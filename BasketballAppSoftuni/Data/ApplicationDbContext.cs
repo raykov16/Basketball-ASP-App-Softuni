@@ -30,7 +30,7 @@ namespace BasketballAppSoftuni.Data
                 p.Property(pl => pl.ReboundsPerGame)
                 .HasDefaultValue(0);
             });
-                
+
             base.OnModelCreating(builder);
         }
     }
