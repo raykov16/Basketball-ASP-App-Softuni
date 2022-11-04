@@ -25,7 +25,7 @@ namespace BasketballAppSoftuni.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("All", "Movies");
+                return RedirectToAction("Index", "Home");
             }
 
             var model = new RegisterViewModel();
@@ -67,7 +67,7 @@ namespace BasketballAppSoftuni.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("All", "Movies");
+                return RedirectToAction("Index", "Home");
             }
 
             var model = new LoginViewModel();
@@ -91,7 +91,7 @@ namespace BasketballAppSoftuni.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("All", "Movies");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
