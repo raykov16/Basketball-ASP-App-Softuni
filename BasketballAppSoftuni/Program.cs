@@ -1,5 +1,7 @@
+using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.Data;
 using BasketballAppSoftuni.Data.Entities;
+using BasketballAppSoftuni.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ITeamService, TeamService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,18 @@
+﻿@model List<TeamShortInfoViewModel>
+
+<div class="text-center row">
+    @foreach (var team in Model)
+    {
+        <div class="card col-4 m-2" style="width: 20rem;">
+            <img class="card-img-top" style="width: 18rem"
+             src="@team.LogoURL" alt="Team logo">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@team.Name</h5>
+            </div>
+
+            <form class="input-group-sm" asp-route-teamId="@team.Id" asp-controller="Team" asp-action="TeamDetails">
+                <input type="submit" value="View details" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+        </div>
+    }
+</div>

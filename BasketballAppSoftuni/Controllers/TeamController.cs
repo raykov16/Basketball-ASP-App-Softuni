@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BasketballAppSoftuni.Contracts;
+using BasketballAppSoftuni.Models.TeamsModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BasketballAppSoftuni.Controllers
 {
     public class TeamController : Controller
     {
-        public IActionResult Index()
+        private readonly ITeamService _teamService;
+        public TeamController(ITeamService teamService)
         {
-            return View();
+            _teamService = teamService;
+        }
+
+        [HttpGet]
+        public async  Task<IActionResult> AllTeams()
+        {
+            List<TeamShortInfoViewModel> models = await _teamService.GetAllAsync();
+
+            return View(models);
         }
     }
 }
