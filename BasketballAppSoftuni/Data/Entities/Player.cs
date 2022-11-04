@@ -16,6 +16,8 @@ namespace BasketballAppSoftuni.Data.Entities
         public double ReboundsPerGame { get; set; }
         [Required]
         public string PictureURL { get; set; }
+
+        public string Position { get; set; }
         [Required]
         public int TeamId { get; set; }
         [ForeignKey(nameof(TeamId))]
