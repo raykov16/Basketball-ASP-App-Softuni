@@ -1,10 +1,8 @@
-﻿using BasketballAppSoftuni.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BasketballAppSoftuni.Controllers
 {
-    public class HomeController : Controller
+    public class TeamController : Controller
     {
         public IActionResult Index()
         {
