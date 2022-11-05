@@ -13,11 +13,18 @@ namespace BasketballAppSoftuni.Controllers
         }
 
         [HttpGet]
-        public async  Task<IActionResult> AllTeams()
+        public async Task<IActionResult> AllTeams()
         {
             List<TeamShortInfoViewModel> models = await _teamService.GetAllAsync();
 
             return View(models);
+        }
+
+        public async Task<IActionResult> TeamDetails(int teamId)
+        {
+            TeamDetailsViewModel model = await _teamService.Get(teamId);
+
+            return View(model);
         }
     }
 }

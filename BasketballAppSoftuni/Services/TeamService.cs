@@ -1,6 +1,7 @@
 ﻿using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.Data;
 using BasketballAppSoftuni.Models.TeamsModels;
+using BasketballAppSoftuni.Models.PlayerModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasketballAppSoftuni.Services
@@ -24,7 +25,32 @@ namespace BasketballAppSoftuni.Services
             })
                 .ToListAsync();
         }
-            
-        
+
+        public async Task<TeamDetailsViewModel> Get(int teamId)
+        {
+            return await _context.Teams
+            .Where(t => t.Id == teamId)
+            .Select(t => new TeamDetailsViewModel
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Arena = t.Arena,
+                HomeTown = t.HomeTown,
+                LogoURL = t.LogoURL,
+                Loses = t.Loses,
+                Wins = t.Wins,
+                Players = _context.Players
+                .Where(p => p.TeamId == t.Id)
+                .Select(p => new PlayerShortInfoViewModel
+                {
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Id = p.Id,
+                    PictureURL = p.PictureURL
+                })
+                .ToList()
+            })
+            .SingleAsync();
+        }
     }
 }

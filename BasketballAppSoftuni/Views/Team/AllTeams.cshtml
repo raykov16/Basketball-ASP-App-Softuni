@@ -1,10 +1,10 @@
 ﻿@model List<TeamShortInfoViewModel>
 
-<div class="text-center row">
+<div class="text-center row m-4">
     @foreach (var team in Model)
     {
-        <div class="card col-4 m-2" style="width: 20rem;">
-            <img class="card-img-top" style="width: 18rem"
+        <div class="card col-4 m-2" style="width: 18rem;">
+            <img class="card-img-top" style="width: 16rem"
              src="@team.LogoURL" alt="Team logo">
             <div class="card-body">
                 <h5 class="card-title mt-1">@team.Name</h5>
