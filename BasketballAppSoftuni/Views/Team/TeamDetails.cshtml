@@ -1,1 +1,34 @@
-﻿
+﻿@model TeamDetailsViewModel
+
+<div class="how-section1">
+    <div class="row">
+        <div class="col-md-6 how-img">
+            <img src="@Model.LogoURL" class="rounded-circle img-fluid"  />
+        </div>
+        <div class="col-md-6 mt-4">
+            <h4>@Model.Name</h4>
+            <p style="color: white;">
+               Current record: @Model.Wins W : @Model.Loses L<br>
+               Home town: @Model.HomeTown<br>
+               Home arena: <a class="link-light" asp-controller="Arena" asp-action="ArenaDetails" asp-route-arenaId="@Model.Arena.Id">@Model.Arena.Name</a>
+            </p>
+        </div>
+    </div>
+</div>
+<h1 class="text-center" style="color: white;">Main roaster</h1>
+<div class="text-center row m-5">
+    @foreach (var player in Model.Players)
+    {
+        <div class="card col-4 m-2" style="width: 14rem;">
+            <img class="card-img-top" style="width: 12rem"
+             src="@player.PictureURL">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@player.FirstName @player.LastName</h5>
+            </div>
+
+            <form class="input-group-sm" asp-route-teamId="@player.Id" asp-controller="Player" asp-action="PlayerDetails">
+                <input type="submit" value="View details" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+        </div>
+    }
+</div>

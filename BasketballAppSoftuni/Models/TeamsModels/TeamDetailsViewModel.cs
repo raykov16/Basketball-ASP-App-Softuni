@@ -17,10 +17,6 @@ namespace BasketballAppSoftuni.Models.TeamsModels
             public Arena Arena { get; set; }
 
             public List<PlayerShortInfoViewModel> Players { get; set; } = new List<PlayerShortInfoViewModel>();
-            //[InverseProperty("HomeTeam")]
-            //public List<Match> HomeMatches { get; set; } = new List<Match>();
-            //[InverseProperty("AwayTeam")]
-            //public List<Match> AwayMatches { get; set; } = new List<Match>();
 
     }
 }
