@@ -31,6 +31,14 @@ namespace BasketballAppSoftuni.Data
                 .HasDefaultValue(0);
             });
 
+            builder.Entity<MyUser>(u =>
+            {
+                u.Property(us => us.Email)
+                .HasMaxLength(60);
+
+                u.Property(us => us.UserName)
+                .HasMaxLength(20);
+            });
             base.OnModelCreating(builder);
         }
     }
