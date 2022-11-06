@@ -1,1 +1,18 @@
-﻿
+﻿@model List<PlayerTeamAndPositionViewModel>
+
+<div class="text-center row m-5">
+	@foreach (var player in Model)
+	{
+		<div class="card col-4 m-2" style="width: 14rem;">
+			<a asp-route-playerId="@player.Id" asp-controller="Player" asp-action="PlayerDetails">
+				<img class="card-img-top" style="width: 12rem"
+				 src="@player.PictureURL">
+			</a>
+			<div class="card-body">
+				<h5 class="card-title mt-1">@player.FullName</h5>
+				<p class="mb-0">Position: @player.Position</p>
+				<p class="mb-0">Team: @player.TeamName</p>
+			</div>
+		</div>
+	}
+</div>

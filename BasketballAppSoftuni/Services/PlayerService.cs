@@ -13,14 +13,16 @@ namespace BasketballAppSoftuni.Services
             _context = context;
         }
 
-        public async Task<List<PlayerShortInfoViewModel>> GetAllAsync()
+        public async Task<List<PlayerTeamAndPositionViewModel>> GetAllAsync()
         {
             return await _context.Players
-                .Select(p => new PlayerShortInfoViewModel
+                .Select(p => new PlayerTeamAndPositionViewModel
                 {
                     Id = p.Id,
                     FullName = p.FirstName + " " + p.LastName,
-                    PictureURL = p.PictureURL
+                    PictureURL = p.PictureURL,
+                    Position = p.Position,
+                    TeamName = p.Team.Name
                 })
                 .ToListAsync();
         }

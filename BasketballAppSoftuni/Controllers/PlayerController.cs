@@ -14,8 +14,8 @@ namespace BasketballAppSoftuni.Controllers
         }
         public async Task<IActionResult> AllPlayers(string nameSearchCriteria)
         {
-            List<PlayerShortInfoViewModel> models = await _playerService.GetAllAsync();
-
+            List<PlayerTeamAndPositionViewModel> models = await _playerService.GetAllAsync();
+            //TODO novo entity za tva ^ shte sudurja full name ,team name , snimka i position 
             if (nameSearchCriteria != null)
             {
                 nameSearchCriteria = nameSearchCriteria.ToLower();
