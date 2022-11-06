@@ -18,6 +18,12 @@ namespace BasketballAppSoftuni.Data.Entities
         public string PictureURL { get; set; }
 
         public string Position { get; set; }
+
+        public int Age { get; set; }
+
+        public string Height { get; set; }
+
+        public string Salary { get; set; }
         [Required]
         public int TeamId { get; set; }
         [ForeignKey(nameof(TeamId))]

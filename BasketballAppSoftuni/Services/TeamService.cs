@@ -26,7 +26,7 @@ namespace BasketballAppSoftuni.Services
                 .ToListAsync();
         }
 
-        public async Task<TeamDetailsViewModel> Get(int teamId)
+        public async Task<TeamDetailsViewModel> GetAsync(int teamId)
         {
             return await _context.Teams
             .Where(t => t.Id == teamId)
@@ -43,8 +43,7 @@ namespace BasketballAppSoftuni.Services
                 .Where(p => p.TeamId == t.Id)
                 .Select(p => new PlayerShortInfoViewModel
                 {
-                    FirstName = p.FirstName,
-                    LastName = p.LastName,
+                    FullName = p.FirstName + " " + p.LastName,
                     Id = p.Id,
                     PictureURL = p.PictureURL
                 })

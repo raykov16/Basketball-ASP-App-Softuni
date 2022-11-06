@@ -23,7 +23,7 @@
             <img class="card-img-top" style="width: 12rem"
              src="@player.PictureURL">
             <div class="card-body">
-                <h5 class="card-title mt-1">@player.FirstName @player.LastName</h5>
+                <h5 class="card-title mt-1">@player.FullName</h5>
             </div>
 
             <form class="input-group-sm" asp-route-teamId="@player.Id" asp-controller="Player" asp-action="PlayerDetails">

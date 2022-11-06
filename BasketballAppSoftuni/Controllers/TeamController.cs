@@ -22,7 +22,7 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> TeamDetails(int teamId)
         {
-            TeamDetailsViewModel model = await _teamService.Get(teamId);
+            TeamDetailsViewModel model = await _teamService.GetAsync(teamId);
 
             return View(model);
         }
