@@ -12,21 +12,24 @@ namespace BasketballAppSoftuni.Controllers
         {
             _playerService = playerService;
         }
-        public async Task<IActionResult> AllPlayers(string nameSearchCriteria)
+        public async Task<IActionResult> AllPlayers(string nameSearchCriteria,string position)
         {
             List<PlayerTeamAndPositionViewModel> models = await _playerService.GetAllAsync();
-            //TODO novo entity za tva ^ shte sudurja full name ,team name , snimka i position 
+
             if (nameSearchCriteria != null)
             {
                 nameSearchCriteria = nameSearchCriteria.ToLower();
                 models = models
-                    .Where(p => p.FullName.ToLower().Contains(nameSearchCriteria))
+                    .Where(p => p.FullName.ToLower().StartsWith(nameSearchCriteria))
                     .ToList();
-                //if (customerDTOs.Count == 0)
-                //{
-                //    model.ErrorMessage = string.Format(Strings.NoCustomerFoundByCriteria, nameSearchCriteria);
-                //    return View(model);
-                //}
+            }
+
+            if (position != null)
+            {
+                position = position.ToLower();
+                models = models.
+                    Where(p => p.Position.ToLower() == position)
+                    .ToList();
             }
 
             return View(models);
