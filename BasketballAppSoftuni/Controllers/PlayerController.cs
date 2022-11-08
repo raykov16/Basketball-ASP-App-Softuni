@@ -34,5 +34,11 @@ namespace BasketballAppSoftuni.Controllers
 
             return View(models);
         }
+
+        public async Task<IActionResult> PlayerDetails(int playerId)
+        {
+            PlayerFullInfoViewModel model = await _playerService.GetAsync(playerId);
+            return View(model);
+        }
     }
 }

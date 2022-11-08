@@ -5,5 +5,7 @@ namespace BasketballAppSoftuni.Contracts
     public interface IPlayerService
     {
         public Task<List<PlayerTeamAndPositionViewModel>> GetAllAsync();
+
+        public Task<PlayerFullInfoViewModel> GetAsync(int playerId);
     }
 }

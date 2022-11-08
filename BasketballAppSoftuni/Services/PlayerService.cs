@@ -26,5 +26,26 @@ namespace BasketballAppSoftuni.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task<PlayerFullInfoViewModel> GetAsync(int playerId)
+        {
+            return await _context.Players
+                .Where(p => p.Id == playerId)
+                .Select(p => new PlayerFullInfoViewModel
+                {
+                    Age = p.Age,
+                    TeamId = p.Team.Id,
+                    Height = p.Height,
+                    Salary = p.Salary,
+                    Position = p.Position,
+                    FullName = p.FirstName + " " + p.LastName,
+                    PictureURL = p.PictureURL,
+                    TeamLogoUrl = p.Team.LogoURL,
+                    PointsPerGame = p.PointsPerGame,
+                    AssistsPerGame = p.AssistsPerGame,
+                    ReboundsPerGame = p.ReboundsPerGame
+                })
+                .SingleAsync();
+        }
     }
 }

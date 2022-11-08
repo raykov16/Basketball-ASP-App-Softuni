@@ -1,0 +1,27 @@
+﻿@model PlayerFullInfoViewModel
+
+<div class="playerFullInfo">
+	<div class="row">
+		<div class="col-md-6 playerFullInfo-img">
+			<h4>@Model.FullName</h4>
+			<img src="@Model.PictureURL" class="border border-light rounded img-fluid" />
+		</div>
+		<div class="col-md-6 mt-5">
+			<p>
+				<h5>Age: @Model.Age</h5>
+				<h5>Height: @Model.Height</h5>
+				<h5>Position: @Model.Position</h5>
+				<h5>PPG: @Model.PointsPerGame</h5>
+				<h5>RPG: @Model.ReboundsPerGame</h5>
+				<h5>APG: @Model.AssistsPerGame</h5>
+				<h5>Salary: @Model.Salary</h5>
+				<h5>
+					Team:
+					<a asp-route-teamId="@Model.TeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@Model.TeamLogoUrl" class="rounded-circle myImage" style="width: 10%"/>
+					</a>
+				</h5>
+			</p>
+		</div>
+	</div>
+</div>
