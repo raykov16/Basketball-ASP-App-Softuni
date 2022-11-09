@@ -18,6 +18,7 @@ builder.Services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireCon
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IArenaService, ArenaService>();
 
 var app = builder.Build();
 
