@@ -1,4 +1,4 @@
-﻿@model List<ArenaShortInfoViewModel>
+﻿@model List<ArenaDetailsViewModel>
 
 <div class="text-center row m-4">
     @foreach (var arena in Model)
@@ -8,11 +8,9 @@
              src="@arena.PictureURL" alt="Arena image">
             <div class="card-body">
                 <h5 class="card-title mt-1">@arena.Name</h5>
+                <p class="mb-0">Location: @arena.Location</p>
+                <p class="mb-0">Seats: @arena.Seats</p>
             </div>
-
-            <form class="input-group-sm" asp-route-arenaId="@arena.Id" asp-controller="Arena" asp-action="ArenaDetails">
-                <input type="submit" value="View details" class="fs-6 btn btn-success mb-3 p-2" />
-            </form>
         </div>
     }
 </div>

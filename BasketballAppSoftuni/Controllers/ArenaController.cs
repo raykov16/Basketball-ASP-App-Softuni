@@ -14,8 +14,14 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> AllArenas()
         {
-            List<ArenaShortInfoViewModel> models = await _arenaService.GetAllAsync();
+            List<ArenaDetailsViewModel> models = await _arenaService.GetAllAsync();
             return View(models);
+        }
+
+        public async Task<IActionResult> ArenaDetails(int arenaId)
+        {
+            ArenaDetailsViewModel model = await _arenaService.GetAsync(arenaId);
+            return View(model);
         }
     }
 }

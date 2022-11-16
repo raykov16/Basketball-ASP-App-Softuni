@@ -14,16 +14,31 @@ namespace BasketballAppSoftuni.Services
             _context = context;
         }
 
-        public async Task<List<ArenaShortInfoViewModel>> GetAllAsync()
+        public async Task<List<ArenaDetailsViewModel>> GetAllAsync()
         {
             return await _context.Arenas
-                .Select(a => new ArenaShortInfoViewModel
+                .Select(a => new ArenaDetailsViewModel
                 {
-                    Id = a.Id,
                     Name = a.Name,
-                    PictureURL = a.PictureURL
+                    PictureURL = a.PictureURL,
+                    Location = a.Location,
+                    Seats = a.Seats
                 })
                 .ToListAsync();
+        }
+
+        public async Task<ArenaDetailsViewModel> GetAsync(int arenaId)
+        {
+            return await _context.Arenas
+                .Where(a => a.Id == arenaId)
+                .Select(a => new ArenaDetailsViewModel
+                {
+                    Name = a.Name,
+                    Seats = a.Seats,
+                    Location = a.Location,
+                    PictureURL = a.PictureURL
+                })
+                .SingleAsync();
         }
     }
 }

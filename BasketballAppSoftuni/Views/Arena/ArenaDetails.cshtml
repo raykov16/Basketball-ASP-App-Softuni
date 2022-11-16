@@ -1,0 +1,17 @@
+﻿@model ArenaDetailsViewModel
+
+<div class="playerFullInfo center">
+	<div class="row">
+		<div class="col-md-6 playerFullInfo-img">
+			<h4>@Model.Name</h4>
+			<img src="@Model.PictureURL" class="border border-light rounded img-fluid" />
+			<h4><a class="link-light" asp-controller="Arena" asp-action="AllArenas">View all arenas</a></h4>
+		</div>
+		<div class="col-md-6 mt-5">
+			<p>
+				<h5>Location: @Model.Location</h5>
+				<h5>Seats: @Model.Seats</h5>
+			</p>
+		</div>
+	</div>
+</div>
