@@ -64,13 +64,16 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.Property<int>("AwayTeamId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AwayTeamPoints")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("GameDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ResultId")
+                    b.Property<int?>("HomeTeamPoints")
                         .HasColumnType("int");
 
                     b.Property<int>("TicketsAvailable")
@@ -83,8 +86,6 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.HasIndex("AwayTeamId");
 
                     b.HasIndex("HomeTeamId");
-
-                    b.HasIndex("ResultId");
 
                     b.ToTable("Matches");
                 });
@@ -212,30 +213,6 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Result", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AwayTeamPoints")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HomeTeamPoints")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MatchId");
-
-                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Team", b =>
@@ -446,17 +423,11 @@ namespace BasketballAppSoftuni.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BasketballAppSoftuni.Data.Entities.Result", "Result")
-                        .WithMany()
-                        .HasForeignKey("ResultId");
-
                     b.Navigation("Arena");
 
                     b.Navigation("AwayTeam");
 
                     b.Navigation("HomeTeam");
-
-                    b.Navigation("Result");
                 });
 
             modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Player", b =>
@@ -468,17 +439,6 @@ namespace BasketballAppSoftuni.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Result", b =>
-                {
-                    b.HasOne("BasketballAppSoftuni.Data.Entities.Match", "Match")
-                        .WithMany()
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Match");
                 });
 
             modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Team", b =>
