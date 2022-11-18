@@ -10,13 +10,11 @@ namespace BasketballAppSoftuni.Data.Entities
         [Required]
         public int HomeTeamId { get; set; }
         [ForeignKey(nameof(HomeTeamId))]
-       // [InverseProperty("HomeMatches")]
         public Team HomeTeam { get; set;}
         [Required]
         public int AwayTeamId { get; set; }
         
         [ForeignKey(nameof(AwayTeamId))]
-      //  [InverseProperty("AwayMatches")]
         public Team AwayTeam { get; set; }
         [Required]
         public int ArenaId { get; set;}
@@ -29,5 +27,6 @@ namespace BasketballAppSoftuni.Data.Entities
         public int? ResultId { get; set; }
         [ForeignKey(nameof(ResultId))]
         public Result? Result { get; set; }
+        public List<UserMatch> UsersMatches { get; set; } = new List<UserMatch>();
     }
 }

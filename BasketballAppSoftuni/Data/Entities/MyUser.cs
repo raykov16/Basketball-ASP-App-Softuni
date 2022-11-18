@@ -4,6 +4,6 @@ namespace BasketballAppSoftuni.Data.Entities
 {
     public class MyUser : IdentityUser
     {
-        public List<Match> MyMatches { get; set; } = new List<Match>();
+        public List<UserMatch> UserMatches { get; set; } = new List<UserMatch>();
     }
 }

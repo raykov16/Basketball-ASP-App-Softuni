@@ -19,6 +19,9 @@ namespace BasketballAppSoftuni.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<UserMatch>()
+              .HasKey(x => new { x.UserId, x.MatchId });
+
             builder.Entity<Player>(p =>
             {
                 p.Property(pl => pl.PointsPerGame)

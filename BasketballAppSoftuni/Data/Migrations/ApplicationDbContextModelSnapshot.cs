@@ -70,9 +70,6 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MyUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("ResultId")
                         .HasColumnType("int");
 
@@ -86,8 +83,6 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.HasIndex("AwayTeamId");
 
                     b.HasIndex("HomeTeamId");
-
-                    b.HasIndex("MyUserId");
 
                     b.HasIndex("ResultId");
 
@@ -279,6 +274,21 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.UserMatch", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MatchId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "MatchId");
+
+                    b.HasIndex("MatchId");
+
+                    b.ToTable("UserMatch");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -436,10 +446,6 @@ namespace BasketballAppSoftuni.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BasketballAppSoftuni.Data.Entities.MyUser", null)
-                        .WithMany("MyMatches")
-                        .HasForeignKey("MyUserId");
-
                     b.HasOne("BasketballAppSoftuni.Data.Entities.Result", "Result")
                         .WithMany()
                         .HasForeignKey("ResultId");
@@ -484,6 +490,25 @@ namespace BasketballAppSoftuni.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Arena");
+                });
+
+            modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.UserMatch", b =>
+                {
+                    b.HasOne("BasketballAppSoftuni.Data.Entities.Match", "Match")
+                        .WithMany("UsersMatches")
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BasketballAppSoftuni.Data.Entities.MyUser", "User")
+                        .WithMany("UserMatches")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Match");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -537,9 +562,14 @@ namespace BasketballAppSoftuni.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Match", b =>
+                {
+                    b.Navigation("UsersMatches");
+                });
+
             modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.MyUser", b =>
                 {
-                    b.Navigation("MyMatches");
+                    b.Navigation("UserMatches");
                 });
 
             modelBuilder.Entity("BasketballAppSoftuni.Data.Entities.Team", b =>
