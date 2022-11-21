@@ -19,6 +19,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IArenaService, ArenaService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
 
 var app = builder.Build();
 

@@ -82,3 +82,9 @@ myImage {
         width: 70%;
         background-color: floralwhite;
     }
+.winnerTeam {
+    color: lawngreen;
+}
+.loserTeam {
+    color: red;
+}

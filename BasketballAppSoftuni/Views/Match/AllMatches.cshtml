@@ -1,0 +1,79 @@
+﻿@model AllMatchesViewModel
+<div class="row">
+	<div class="col">
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Filter by team
+			</button>
+			<ul class="dropdown-menu">
+				<a class="dropdown-item" asp-route-teamId="0" asp-controller="Match" asp-action="AllMatches">
+					All
+				</a>
+				@foreach (var team in Model.teamModels)
+				{
+					<li>
+						<a class="dropdown-item" asp-route-teamId="@team.Id" asp-controller="Match" asp-action="AllMatches">
+							@team.Name
+						</a>
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+	<div class="col">
+		<form class="input-group-sm" asp-controller="Match" asp-action="MatchesWithTickets" method="get">
+			<input type="submit" value="Buy tickets" class="fs-6 btn btn-success mb-3 p-2" />
+		</form>
+	</div>
+</div>
+<table class="table table-hover table-dark">
+	<thead>
+		<tr>
+			<th scope="col" class="text-center">Home team</th>
+			<th scope="col"></th>
+			<th scope="col" class="text-center">Result</th>
+			<th scope="col"></th>
+			<th scope="col" class="text-center">Away team</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var m in Model.matchModels)
+		{
+			<tr>
+				<td>
+					<a style="text-decoration:auto;" asp-route-teamId="@m.HomeTeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@m.HomeTeamLogo" class="rounded-circle myImage" style="width: 4.3rem;" />
+					</a>
+					@m.HomeTeamName
+				</td>
+				@if (m.HomeTeamPoints != null)
+				{
+					if (m.HomeTeamPoints > m.AwayTeamPoints)
+					{
+						<td class="winnerTeam text-center" style="padding-top: 1.3rem;">@m.HomeTeamPoints</td>
+						<td class="text-center" style="padding-top: 1.3rem">:</td>
+						<td class="loserTeam text-center" style="padding-top: 1.3rem;">@m.AwayTeamPoints</td>
+					}
+					else
+					{
+						<td class="loserTeam text-center" style="padding-top: 1.3rem;">@m.HomeTeamPoints</td>
+						<td class="text-center" style="padding-top: 1.3rem">:</td>
+						<td class="winnerTeam text-center" style="padding-top: 1.3rem;">@m.AwayTeamPoints</td>
+					}
+				}
+				else
+				{
+					<td></td>
+					<td class="text-center" style="padding-top: 1.3rem">TBD</td>
+					<td></td>
+				}
+				<td class="text-end">
+					@m.AwayTeamName
+					<a asp-route-teamId="@m.AwayTeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@m.AwayTeamLogo" class="rounded-circle myImage" style="width: 4.3rem;" />
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
