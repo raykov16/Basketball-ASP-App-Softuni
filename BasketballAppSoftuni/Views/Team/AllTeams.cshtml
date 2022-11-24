@@ -10,9 +10,9 @@
                 <h5 class="card-title mt-1">@team.Name</h5>
             </div>
 
-            <form class="input-group-sm" asp-route-teamId="@team.Id" asp-controller="Team" asp-action="TeamDetails">
+            <a asp-route-teamId="@team.Id" asp-controller="Team" asp-action="TeamDetails">
                 <input type="submit" value="View details" class="fs-6 btn btn-success mb-3 p-2" />
-            </form>
+            </a>
         </div>
     }
 </div>

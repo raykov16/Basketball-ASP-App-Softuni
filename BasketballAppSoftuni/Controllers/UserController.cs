@@ -1,6 +1,7 @@
 ﻿using BasketballAppSoftuni.Data.Entities;
 using BasketballAppSoftuni.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,7 +52,7 @@ namespace BasketballAppSoftuni.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("Home", "Index");
             }
 
             foreach (var item in result.Errors)
@@ -91,7 +92,7 @@ namespace BasketballAppSoftuni.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("AllMatches", "Match");
                 }
             }
 

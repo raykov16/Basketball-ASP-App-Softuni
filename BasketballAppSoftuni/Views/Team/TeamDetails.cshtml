@@ -26,9 +26,9 @@
 				<h5 class="card-title mt-1">@player.FullName</h5>
 			</div>
 
-			<form class="input-group-sm" asp-route-playerId="@player.Id" asp-controller="Player" asp-action="PlayerDetails">
+			<a asp-route-playerId="@player.Id" asp-controller="Player" asp-action="PlayerDetails">
 				<input type="submit" value="View details" class="fs-6 btn btn-success mb-3 p-2" />
-			</form>
+			</a>
 		</div>
 	}
 </div>

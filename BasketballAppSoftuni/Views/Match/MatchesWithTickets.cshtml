@@ -1,0 +1,62 @@
+﻿@model MatchesWithTicketsViewModel
+
+<div class="dropdown">
+	<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		Filter by team
+	</button>
+	<ul class="dropdown-menu">
+		<a class="dropdown-item" asp-route-teamId="0" asp-controller="Match" asp-action="MatchesWithTickets">
+			All
+		</a>
+		@foreach (var team in Model.teamModels)
+		{
+			<li>
+				<a class="dropdown-item" asp-route-teamId="@team.Id" asp-controller="Match" asp-action="MatchesWithTickets">
+					@team.Name
+				</a>
+			</li>
+		}
+	</ul>
+</div>
+<table class="table table-hover table-dark">
+	<thead>
+		<tr>
+			<th scope="col" class="text-center">Home team</th>
+			<th scope="col"></th>
+			<th scope="col" class="text-center">Away team</th>
+			<th scope="col" class="text-center">Arena</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var m in Model.matchModels)
+		{
+			<tr>
+				<td>
+					<a style="text-decoration:auto;" asp-route-teamId="@m.HomeTeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@m.HomeTeamLogo" class="rounded-circle myImage" style="width: 4.3rem;" />
+					</a>
+					@m.HomeTeamName
+				</td>
+				<td class="text-center" style="padding-top: 2rem;">VS</td>
+				<td class="text-end">
+					@m.AwayTeamName
+					<a asp-route-teamId="@m.AwayTeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@m.AwayTeamLogo" class="rounded-circle myImage" style="width: 4.3rem;" />
+					</a>
+				</td>
+				<td class="text-center" style="padding-top: 2rem;">
+					<a class="link-light" asp-route-arenaId="@m.ArenaId" asp-action="ArenaDetails" asp-controller="Arena">
+						@m.ArenaName
+					</a>
+				</td>
+				<td class="text-center" style="padding-top: 1.3rem">
+					<a asp-route-matchId="@m.MatchId" asp-controller="Ticket" asp-action="BuyTickets">
+						<input type="submit" value="Buy Tickets" class="fs-6 btn btn-success mb-3 p-2" />
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
