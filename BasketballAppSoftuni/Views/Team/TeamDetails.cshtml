@@ -10,7 +10,8 @@
 			<p style="color: white;">
 				Current record: @Model.Wins W : @Model.Loses L<br>
 				Home town: @Model.HomeTown<br>
-				Home arena: <a class="link-light" asp-controller="Arena" asp-action="ArenaDetails" asp-route-arenaId="@Model.Arena.Id">@Model.Arena.Name</a>
+				Home arena: <a class="link-light" asp-controller="Arena" asp-action="ArenaDetails" asp-route-arenaId="@Model.Arena.Id">@Model.Arena.Name</a><br>
+				<a class="link-light" asp-route-teamId="@Model.Id" asp-controller="Match" asp-action="AllMatches">View matches</a>
 			</p>
 		</div>
 	</div>
@@ -20,15 +21,15 @@
 	@foreach (var player in Model.Players)
 	{
 		<div class="card col-4 m-2" style="width: 14rem;">
-				<img class="card-img-top" style="width: 12rem"
-				 src="@player.PictureURL">
+			<img class="card-img-top" style="width: 12rem"
+			 src="@player.PictureURL">
 			<div class="card-body">
 				<h5 class="card-title mt-1">@player.FullName</h5>
 			</div>
-
 			<a asp-route-playerId="@player.Id" asp-controller="Player" asp-action="PlayerDetails">
 				<input type="submit" value="View details" class="fs-6 btn btn-success mb-3 p-2" />
 			</a>
 		</div>
 	}
 </div>
+	

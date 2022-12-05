@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RescheduleMatchModel>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<table class="table table-hover table-dark">
+	<thead>
+		<tr>
+			<th scope="col" class="text-center">Home team</th>
+			<th scope="col"></th>
+			<th scope="col" class="text-center">Away team</th>
+			<th scope="col" class="text-center">Match date</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var m in Model)
+		{
+			<tr>
+				<td>
+					<img src="@m.HomeTeamLogo" class="rounded-circle" style="width: 4.3rem;" />
+					@m.HomeTeamName
+				</td>
+				<td class="text-center" style="padding-top: 2rem;">VS</td>
+				<td class="text-end">
+					@m.AwayTeamName
+					<img src="@m.AwayTeamLogo" class="rounded-circle" style="width: 4.3rem;" />
+				</td>
+			<form method="post">
+				<td class="text-center" style="padding-top: 2rem;">
+					<input value="@m.MatchDate" name="MatchDate"/>
+					<span asp-validation-for="@m.MatchDate" class="text-danger"></span>
+					<input value="@m.MatchId" name="MatchId" type="hidden"/>
+				</td>
+				<td class="text-center" style="padding-top: 1.3rem">
+					<button class="btn btn-outline-light btn-lg px-5" type="submit">Reschedule</button>
+				</td>
+			</form>
+			</tr>
+		}
+	</tbody>
+</table>

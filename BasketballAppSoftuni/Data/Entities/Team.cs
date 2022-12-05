@@ -23,11 +23,5 @@ namespace BasketballAppSoftuni.Data.Entities
         public Arena Arena { get; set; }
 
         public List<Player> Players { get; set;  } = new List<Player>();
-
-        //[InverseProperty("HomeTeam")]
-        //public List<Match> HomeMatches { get; set; } = new List<Match>();
-        //[InverseProperty("AwayTeam")]
-        //public List<Match> AwayMatches { get; set; } = new List<Match>();
-
     }
 }

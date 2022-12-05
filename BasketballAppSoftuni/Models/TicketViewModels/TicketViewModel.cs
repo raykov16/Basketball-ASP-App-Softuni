@@ -17,5 +17,6 @@ namespace BasketballAppSoftuni.Models.TicketViewModels
 		public string ArenaLocation { get; set; }
 		public int TicketsAvailable { get; set; }
 		public int Quantity { get; set; }
+		public decimal PricePerTicket { get; set;}
 	}
 }

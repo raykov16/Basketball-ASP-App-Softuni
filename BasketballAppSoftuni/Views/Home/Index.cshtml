@@ -1,9 +1,50 @@
-﻿@{
+﻿@model IEnumerable<MatchBuyTicketViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center mt-5">
     <h1 class="display-4" style="color: white;">Welcome to my Basketball App!</h1>
     <p style="font-size: 23px; color: white;margin-top: 30px;">In this application you can view all matches, buy tickets for them or just view information about your favorite teams!
+    <p style="font-size: 23px; color: white;margin-top: 30px;">Latest upcoming matches:</p>
     </p>
 </div>
+    <table class="table table-hover table-dark">
+	<thead>
+		<tr>
+			<th scope="col" class="text-center">Home team</th>
+			<th scope="col"></th>
+			<th scope="col" class="text-center">Away team</th>
+			<th scope="col" class="text-center">Match date</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var m in Model)
+		{
+			<tr>
+				<td>
+					<a style="text-decoration:auto;" asp-route-teamId="@m.HomeTeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@m.HomeTeamLogo" class="rounded-circle myImage" style="width: 4.3rem;" />
+					</a>
+					@m.HomeTeamName
+				</td>
+				<td class="text-center" style="padding-top: 2rem;">VS</td>
+				<td class="text-end">
+					@m.AwayTeamName
+					<a asp-route-teamId="@m.AwayTeamId" asp-controller="Team" asp-action="TeamDetails">
+						<img src="@m.AwayTeamLogo" class="rounded-circle myImage" style="width: 4.3rem;" />
+					</a>
+				</td>
+				<td class="text-center" style="padding-top: 2rem;">
+						@m.Date
+				</td>
+				<td class="text-center" style="padding-top: 1.3rem">
+					<a asp-route-matchId="@m.MatchId" asp-controller="Ticket" asp-action="BuyTickets">
+						<input type="submit" value="Buy Tickets" class="fs-6 btn btn-success mb-3 p-2" />
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

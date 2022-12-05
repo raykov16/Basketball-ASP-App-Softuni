@@ -1,11 +1,6 @@
 ﻿@model AllMatchesViewModel
 <div class="row">
-	<div class="col-1">
-		<a asp-controller="Match" asp-action="MatchesWithTickets">
-			<input type="submit" value="Buy tickets" class="fs-6 btn btn-success mb-3 p-2" />
-		</a>
-	</div>
-	<div class="col-1">
+	<div class="col-4">
 		<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Filter by team
@@ -25,7 +20,11 @@
 			</ul>
 		</div>
 	</div>
-	
+	<div class="col-8 text-end">
+		<a asp-controller="Match" asp-action="MatchesWithTickets">
+			<input type="submit" value="Buy tickets" class="fs-6 btn btn-success mb-3 p-2" />
+		</a>
+	</div>
 </div>
 <table class="table table-hover table-dark">
 	<thead>

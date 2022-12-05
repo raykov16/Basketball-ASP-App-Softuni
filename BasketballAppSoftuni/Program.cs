@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireCon
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IArenaService, ArenaService>();
 builder.Services.AddScoped<IMatchService, MatchService>();
@@ -49,9 +50,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.UseEndpoints(endpoints =>
+{
+    app.MapControllerRoute(
+  name: "Areas",
+  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+    app.MapRazorPages();
+});
 
 app.Run();

@@ -76,6 +76,9 @@ namespace BasketballAppSoftuni.Data.Migrations
                     b.Property<int?>("HomeTeamPoints")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("TicketPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("TicketsAvailable")
                         .HasColumnType("int");
 

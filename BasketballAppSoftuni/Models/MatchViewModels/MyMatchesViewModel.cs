@@ -10,6 +10,6 @@
         public int? AwayTeamPoints { get; set; }
         public string ArenaName { get; set; }
         public string ArenaLocation { get; set; }
-        public DateTime MatchDate { get; set; }
+        public string MatchDate { get; set; }
     }
 }

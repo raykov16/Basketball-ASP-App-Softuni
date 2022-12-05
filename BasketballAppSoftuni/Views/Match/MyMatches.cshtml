@@ -20,6 +20,7 @@ else
 				<th scope="col" class="text-center">Result</th>
 				<th scope="col"></th>
 				<th scope="col" class="text-center">Away team</th>
+				<th scope="col" class="text-center">Match date</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -54,6 +55,9 @@ else
 					<td class="text-end">
 						@m.AwayTeamName
 						<img src="@m.AwayTeamLogo" class="rounded-circle" style="width: 4.3rem;" />
+					</td>
+					<td class="text-center" style="padding-top: 2rem;">
+						@m.MatchDate
 					</td>
 				</tr>
 			}

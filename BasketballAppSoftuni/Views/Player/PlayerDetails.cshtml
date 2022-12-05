@@ -1,27 +1,27 @@
 ﻿@model PlayerFullInfoViewModel
 
-<div class="playerFullInfo center">
-	<div class="row">
-		<div class="col-md-6 playerFullInfo-img">
-			<h4>@Model.FullName</h4>
-			<img src="@Model.PictureURL" class="border border-light rounded img-fluid" />
-		</div>
-		<div class="col-md-6 mt-5">
-			<p>
-				<h5>Age: @Model.Age</h5>
-				<h5>Height: @Model.Height"</h5>
-				<h5>Position: @Model.Position</h5>
-				<h5>PPG: @Model.PointsPerGame</h5>
-				<h5>RPG: @Model.ReboundsPerGame</h5>
-				<h5>APG: @Model.AssistsPerGame</h5>
-				<h5>Salary: @Model.Salary</h5>
-				<h5>
+<div class="how-section1">
+	<div class="playerFullInfo center">
+		<div class="row">
+			<div class="col-md-6 playerFullInfo-img" style="margin-top: 1.2rem;">
+				<h4>@Model.FullName</h4>
+				<img src="@Model.PictureURL" class="border border-light rounded img-fluid" />
+			</div>
+			<div class="col-md-6 mt-5">
+				<p class="fw-bold" style="font-size: 1rem; color: white;">Age: @Model.Age</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">Height: @Model.Height"</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">Position: @Model.Position</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">PPG: @Model.PointsPerGame</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">RPG: @Model.ReboundsPerGame</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">APG: @Model.AssistsPerGame</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">Salary: @Model.Salary</p>
+				<p class="fw-bold" style="font-size: 1rem; color: white;">
 					Team:
 					<a asp-route-teamId="@Model.TeamId" asp-controller="Team" asp-action="TeamDetails">
-						<img src="@Model.TeamLogoUrl" class="rounded-circle myImage" style="width: 10%"/>
+						<img src="@Model.TeamLogoUrl" class="rounded-circle myImage" style="width: 10%" />
 					</a>
-				</h5>
-			</p>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>

@@ -31,6 +31,7 @@ namespace BasketballAppSoftuni.Services
 				AwayTeamLogo = match.AwayTeam.LogoURL,
 				HomeTeamLogo = match.HomeTeam.LogoURL,
 				TicketsAvailable = match.TicketsAvailable,
+				PricePerTicket = match.TicketPrice
 			};
 
 			return ticket;

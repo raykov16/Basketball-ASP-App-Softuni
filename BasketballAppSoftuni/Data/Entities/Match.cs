@@ -24,8 +24,10 @@ namespace BasketballAppSoftuni.Data.Entities
         public DateTime GameDate { get; set; }
         [Required]
         public int TicketsAvailable { get; set;}
+        public decimal TicketPrice { get; set; }
         public int? HomeTeamPoints { get; set;}
         public int? AwayTeamPoints { get; set;}
         public List<UserMatch> UsersMatches { get; set; } = new List<UserMatch>();
+
     }
 }

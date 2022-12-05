@@ -40,7 +40,7 @@ namespace BasketballAppSoftuni.Services
                 {
                     MatchId = m.Id,
                     ArenaId = m.HomeTeam.ArenaId,
-                    ArenaName = m.HomeTeam.Arena.Name,
+                    Date = m.GameDate.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                     HomeTeamId = m.HomeTeamId,
                     AwayTeamId = m.AwayTeamId,
                     HomeTeamLogo = m.HomeTeam.LogoURL,
@@ -67,7 +67,7 @@ namespace BasketballAppSoftuni.Services
             var myMatchesModels = user.UserMatches
            .Select(um => new MyMatchesViewModel()
            {
-               MatchDate = um.Match.GameDate,
+               MatchDate = um.Match.GameDate.ToString("dddd, dd MMMM yyyy hh:mm tt"),
                ArenaName = um.Match.HomeTeam.Arena.Name,
                ArenaLocation = um.Match.HomeTeam.Arena.Location,
                AwayTeamLogo = um.Match.AwayTeam.LogoURL,
