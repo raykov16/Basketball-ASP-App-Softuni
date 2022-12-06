@@ -1,12 +1,16 @@
 ﻿using BasketballAppSoftuni.Contracts;
+using BasketballAppSoftuni.DTOs.TeamDTOs;
 using BasketballAppSoftuni.Models.TeamsModels;
 using Microsoft.AspNetCore.Mvc;
+using BasketballAppSoftuni.Data.Entities;
+using BasketballAppSoftuni.Models.PlayerModels;
 
 namespace BasketballAppSoftuni.Controllers
 {
     public class TeamController : Controller
     {
         private readonly ITeamService _teamService;
+
         public TeamController(ITeamService teamService)
         {
             _teamService = teamService;
@@ -15,16 +19,57 @@ namespace BasketballAppSoftuni.Controllers
         [HttpGet]
         public async Task<IActionResult> AllTeams()
         {
-            List<TeamShortInfoViewModel> models = await _teamService.GetAllAsync();
+            List<TeamShortInfoDTO> dtos = await _teamService.GetAllAsync();
+
+            var models = MapAllTeamsModels(dtos);
 
             return View(models);
         }
 
         public async Task<IActionResult> TeamDetails(int teamId)
         {
-            TeamDetailsViewModel model = await _teamService.GetAsync(teamId);
+            TeamDetailsDTO d = await _teamService.GetAsync(teamId);
+
+            var model = MapTeamDetailsModel(d);
 
             return View(model);
         }
+
+        private static IEnumerable<TeamShortInfoViewModel> MapAllTeamsModels(List<TeamShortInfoDTO> dtos)
+        {
+            return dtos.Select(d => new TeamShortInfoViewModel
+            {
+                Id = d.Id,
+                LogoURL = d.LogoURL,
+                Name = d.Name
+            });
+        }
+        private static TeamDetailsViewModel MapTeamDetailsModel(TeamDetailsDTO dto)
+        {
+            return new TeamDetailsViewModel
+            {
+                HomeTown = dto.HomeTown,
+                Id = dto.Id,
+                LogoURL = dto.LogoURL,
+                Loses = dto.Loses,
+                Name = dto.Name,
+                Wins = dto.Wins,
+                Arena = new Arena
+                {
+                    Id = dto.Arena.Id,
+                    Location = dto.Arena.Location,
+                    Name = dto.Arena.Name,
+                    PictureURL = dto.Arena.PictureURL,
+                    Seats = dto.Arena.Seats
+                },
+                Players = dto.Players.Select(p => new PlayerShortInfoViewModel
+                {
+                    FullName = p.FullName,
+                    Id = p.Id,
+                    PictureURL = p.PictureURL
+                })
+            };
+        }
+
     }
 }

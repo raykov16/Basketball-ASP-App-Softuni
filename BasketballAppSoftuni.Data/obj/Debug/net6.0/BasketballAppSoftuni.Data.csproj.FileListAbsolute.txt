@@ -1,0 +1,14 @@
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\bin\Debug\net6.0\BasketballAppSoftuni.Data.deps.json
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\bin\Debug\net6.0\BasketballAppSoftuni.Data.runtimeconfig.json
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\bin\Debug\net6.0\BasketballAppSoftuni.Data.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\bin\Debug\net6.0\BasketballAppSoftuni.Data.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.csproj.AssemblyReference.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.AssemblyInfoInputs.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.AssemblyInfo.cs
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.csproj.CoreCompileInputs.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\refint\BasketballAppSoftuni.Data.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\BasketballAppSoftuni.Data.genruntimeconfig.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Data\obj\Debug\net6.0\ref\BasketballAppSoftuni.Data.dll

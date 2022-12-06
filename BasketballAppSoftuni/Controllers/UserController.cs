@@ -1,7 +1,5 @@
 ﻿using BasketballAppSoftuni.Data.Entities;
 using BasketballAppSoftuni.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,7 +50,7 @@ namespace BasketballAppSoftuni.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Home", "Index");
+                return RedirectToAction("Index", "Home");
             }
 
             foreach (var item in result.Errors)
@@ -106,6 +104,11 @@ namespace BasketballAppSoftuni.Controllers
             await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

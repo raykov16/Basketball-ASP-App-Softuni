@@ -1,0 +1,15 @@
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\bin\Debug\net6.0\BasketballAppSoftuni.DTOs.deps.json
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\bin\Debug\net6.0\BasketballAppSoftuni.DTOs.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\bin\Debug\net6.0\BasketballAppSoftuni.DTOs.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\bin\Debug\net6.0\BasketballAppSoftuni.Data.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\bin\Debug\net6.0\BasketballAppSoftuni.Data.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.csproj.AssemblyReference.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.AssemblyInfoInputs.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.AssemblyInfo.cs
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.csproj.CoreCompileInputs.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.csproj.CopyComplete
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\refint\BasketballAppSoftuni.DTOs.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\BasketballAppSoftuni.DTOs.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.DTOs\obj\Debug\net6.0\ref\BasketballAppSoftuni.DTOs.dll

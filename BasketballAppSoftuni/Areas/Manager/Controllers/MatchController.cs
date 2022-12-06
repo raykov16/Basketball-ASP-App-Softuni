@@ -1,6 +1,6 @@
 ﻿using BasketballAppSoftuni.Areas.Manager.Models;
 using BasketballAppSoftuni.Contracts;
-using BasketballAppSoftuni.Models.MatchViewModels;
+using BasketballAppSoftuni.DTOs.ManagerAreaDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasketballAppSoftuni.Areas.Manager.Controllers
@@ -16,18 +16,22 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         [HttpGet]
         public async Task<IActionResult> Schedule()
         {
+            var dtos = await _managerService.GetAllTeamNamesAsync();
+
             var model = new ScheduleMatchModel()
             {
-                AllTeams = await _managerService.GetAllTeamNamesAsync(),
+                AllTeams = MapAllTeams(dtos),
                 MatchDate = DateTime.Now.AddDays(1)
             };
+
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Schedule(ScheduleMatchModel model)
         {
-            model.AllTeams = await _managerService.GetAllTeamNamesAsync();
+            var dtos = await _managerService.GetAllTeamNamesAsync();
+            model.AllTeams = MapAllTeams(dtos);
 
             if (!ModelState.IsValid)
             {
@@ -43,18 +47,25 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
             }
             else
             {
-                await _managerService.AddMatchAsync(model);
+                var dto = MapScheduleMatchDTO(model);
+
+                await _managerService.AddMatchAsync(dto);
+
                 return RedirectToAction("Index", "Home");
             }
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Reschedule()
         {
-            var models = await _managerService.GetUnplayedMatchesAsync();
+            var dtos = await _managerService.GetUnplayedMatchesAsync();
+
+            var models = MapUnplayedMatchesModels(dtos);
+
             return View(models);
         }
+
+        
 
         [HttpPost]
         public async Task<IActionResult> Reschedule(RescheduleMatchModel model)
@@ -68,14 +79,20 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
                 await _managerService.RescheduleMatchAsync(model.MatchId, model.MatchDate);
             }
 
-            var models = await _managerService.GetUnplayedMatchesAsync();
+            var dtos = await _managerService.GetUnplayedMatchesAsync();
+
+            var models = MapUnplayedMatchesModels(dtos);
+
             return View(models);
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateResult()
         {
-            var models = await _managerService.GetMatchesForUpdateAsync();
+            var dtos = await _managerService.GetMatchesForUpdateAsync();
+
+            var models = MapUpdateMatchModels(dtos);
+
             return View(models);
         }
 
@@ -84,7 +101,9 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         {
             await _managerService.UpdateMatchScoreAsync(model.MatchId, model.HomeTeamPoints, model.AwayTeamPoints);
 
-            var models = await _managerService.GetMatchesForUpdateAsync();
+            var dtos = await _managerService.GetMatchesForUpdateAsync();
+
+            var models = MapUpdateMatchModels(dtos);
 
             return View(models);
         }
@@ -92,7 +111,10 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         [HttpGet]
         public async Task<IActionResult> RemoveMatch()
         {
-            var models = await _managerService.GetUnplayedMatchesAsync();
+            var dtos = await _managerService.GetUnplayedMatchesAsync();
+
+            var models = MapUnplayedMatchesModels(dtos);
+
             return View(models);
         }
 
@@ -101,10 +123,21 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         {
             await _managerService.RemoveMatch(matchId);
 
-            var models = await _managerService.GetUnplayedMatchesAsync();
+            var dtos = await _managerService.GetUnplayedMatchesAsync();
+
+            var models = MapUnplayedMatchesModels(dtos);
+
             return View(models);
         }
 
+        private static IEnumerable<TeamShortInfoModel> MapAllTeams(IEnumerable<TeamShortInfoDTO> dtos)
+        {
+            return dtos.Select(d => new TeamShortInfoModel
+            {
+                Id = d.Id,
+                Name = d.Name
+            });
+        }
         private bool AreTeamsValid(ScheduleMatchModel model)
         {
             bool invalidTeam = false;
@@ -132,6 +165,41 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
             }
 
             return invalidDate;
+        }
+        private static ScheduleMatchDTO MapScheduleMatchDTO(ScheduleMatchModel model)
+        {
+            return new ScheduleMatchDTO
+            {
+                AwayTeamId = model.AwayTeamId,
+                HomeTeamId = model.HomeTeamId,
+                MatchDate = model.MatchDate,
+                MatchTime = model.MatchTime,
+                TicketPrice = model.TicketPrice
+            };
+        }
+        private static IEnumerable<RescheduleMatchModel> MapUnplayedMatchesModels(IEnumerable<RescheduleMatchDTO> dtos)
+        {
+            return dtos.Select(d => new RescheduleMatchModel
+            {
+                AwayTeamLogo = d.AwayTeamLogo,
+                AwayTeamName = d.AwayTeamName,
+                HomeTeamLogo = d.HomeTeamLogo,
+                HomeTeamName = d.HomeTeamName,
+                MatchDate = d.MatchDate,
+                MatchId = d.MatchId
+            });
+        }
+        private static IEnumerable<UpdateMatchResultModel> MapUpdateMatchModels(IEnumerable<UpdateMatchResultDTO> dtos)
+        {
+            return dtos.Select(d => new UpdateMatchResultModel
+            {
+                AwayTeamName = d.AwayTeamName,
+                AwayTeamPoints = d.AwayTeamPoints,
+                HomeTeamName = d.HomeTeamName,
+                HomeTeamPoints = d.HomeTeamPoints,
+                MatchDate = d.MatchDate,
+                MatchId = d.MatchId
+            });
         }
     }
 }

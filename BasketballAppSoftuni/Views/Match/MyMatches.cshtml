@@ -1,6 +1,6 @@
-﻿@model List<MyMatchesViewModel>
+﻿@model IEnumerable<MyMatchesViewModel>
 
-@if (Model.Count == 0)
+@if (Model.Count() == 0)
 {
 	<div class="text-center">
 		<h1 class="text-uppercase fw-bold mt-5" style="color: white;">You haven't bought any tickets yet!</h1>

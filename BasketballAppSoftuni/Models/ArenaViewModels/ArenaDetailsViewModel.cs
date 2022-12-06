@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BasketballAppSoftuni.Models.ArenaViewModels
+﻿namespace BasketballAppSoftuni.Models.ArenaViewModels
 {
     public class ArenaDetailsViewModel
     {

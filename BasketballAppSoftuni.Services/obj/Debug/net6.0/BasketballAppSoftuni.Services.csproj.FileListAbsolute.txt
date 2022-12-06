@@ -1,0 +1,17 @@
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.csproj.AssemblyReference.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.AssemblyInfoInputs.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.AssemblyInfo.cs
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.csproj.CoreCompileInputs.cache
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.Services.deps.json
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.Services.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.Services.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.Data.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.DTOs.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.Data.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\bin\Debug\net6.0\BasketballAppSoftuni.DTOs.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.csproj.CopyComplete
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\refint\BasketballAppSoftuni.Services.dll
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\BasketballAppSoftuni.Services.pdb
+D:\Projects\BasketballAppSoftuni\BasketballAppSoftuni.Services\obj\Debug\net6.0\ref\BasketballAppSoftuni.Services.dll

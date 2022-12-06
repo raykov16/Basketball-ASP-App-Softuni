@@ -15,8 +15,7 @@ namespace BasketballAppSoftuni.Models.TeamsModels
             public string HomeTown { get; set; }
             public string LogoURL { get; set; }
             public Arena Arena { get; set; }
-
-            public List<PlayerShortInfoViewModel> Players { get; set; } = new List<PlayerShortInfoViewModel>();
+            public IEnumerable<PlayerShortInfoViewModel> Players { get; set; } = new List<PlayerShortInfoViewModel>();
 
     }
 }

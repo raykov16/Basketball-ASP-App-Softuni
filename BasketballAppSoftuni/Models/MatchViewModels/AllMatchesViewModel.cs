@@ -4,7 +4,7 @@ namespace BasketballAppSoftuni.Models.MatchViewModels
 {
 	public class AllMatchesViewModel
 	{
-		public List<MatchTableViewModel> matchModels { get; set; }
-		public List<TeamShortInfoViewModel> teamModels { get; set; } 
+		public IEnumerable<MatchTableViewModel> matchModels { get; set; }
+		public IEnumerable<TeamShortInfoViewModel> teamModels { get; set; } 
 	}
 }

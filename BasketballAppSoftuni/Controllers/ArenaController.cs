@@ -14,13 +14,32 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> AllArenas()
         {
-            List<ArenaDetailsViewModel> models = await _arenaService.GetAllAsync();
+            var dtos = await _arenaService.GetAllAsync();
+
+            IEnumerable<ArenaDetailsViewModel> models = dtos
+                .Select(d => new ArenaDetailsViewModel
+                {
+                    Location = d.Location,
+                    Name = d.Name,
+                    PictureURL = d.PictureURL,
+                    Seats = d.Seats
+                });
+
             return View(models);
         }
 
         public async Task<IActionResult> ArenaDetails(int arenaId)
         {
-            ArenaDetailsViewModel model = await _arenaService.GetAsync(arenaId);
+            var dto = await _arenaService.GetAsync(arenaId);
+
+            var model = new ArenaDetailsViewModel
+            {
+                Location = dto.Location,
+                Name = dto.Name,
+                PictureURL = dto.PictureURL,
+                Seats = dto.Seats
+            };
+
             return View(model);
         }
     }
