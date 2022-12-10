@@ -1,6 +1,7 @@
 ﻿using BasketballAppSoftuni.Areas.Manager.Models;
 using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.DTOs.ManagerAreaDTOs;
+using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasketballAppSoftuni.Areas.Manager.Controllers
@@ -16,118 +17,174 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         [HttpGet]
         public async Task<IActionResult> Schedule()
         {
-            var dtos = await _managerService.GetAllTeamNamesAsync();
-
-            var model = new ScheduleMatchModel()
+            try
             {
-                AllTeams = MapAllTeams(dtos),
-                MatchDate = DateTime.Now.AddDays(1)
-            };
+                var dtos = await _managerService.GetAllTeamNamesAsync();
 
-            return View(model);
+                var model = new ScheduleMatchModel()
+                {
+                    AllTeams = MapAllTeams(dtos),
+                    MatchDate = DateTime.Now.AddDays(1)
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.GetScheduleError });
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Schedule(ScheduleMatchModel model)
         {
-            var dtos = await _managerService.GetAllTeamNamesAsync();
-            model.AllTeams = MapAllTeams(dtos);
-
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
+                var dtos = await _managerService.GetAllTeamNamesAsync();
+                model.AllTeams = MapAllTeams(dtos);
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                bool invalidTeams = AreTeamsValid(model);
+                bool invalidDate = IsDateValid(model);
+
+                if (invalidDate || invalidTeams)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    var dto = MapScheduleMatchDTO(model);
+
+                    await _managerService.AddMatchAsync(dto);
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
-            bool invalidTeams = AreTeamsValid(model);
-            bool invalidDate = IsDateValid(model);
-
-            if (invalidDate || invalidTeams)
+            catch (Exception)
             {
-                return View(model);
-            }
-            else
-            {
-                var dto = MapScheduleMatchDTO(model);
-
-                await _managerService.AddMatchAsync(dto);
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.PostScheduleError });
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Reschedule()
         {
-            var dtos = await _managerService.GetUnplayedMatchesAsync();
+            try
+            {
+                var dtos = await _managerService.GetUnplayedMatchesAsync();
 
-            var models = MapUnplayedMatchesModels(dtos);
+                var models = MapUnplayedMatchesModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
+            }
         }
 
-        
+
 
         [HttpPost]
         public async Task<IActionResult> Reschedule(RescheduleMatchModel model)
         {
-            if (model.MatchDate < DateTime.Now)
+            try
             {
-                ModelState.AddModelError("", "Enter a date that is not earlier than today!");
+                if (model.MatchDate < DateTime.Now)
+                {
+                    ModelState.AddModelError("", "Enter a date that is not earlier than today!");
+                }
+                else
+                {
+                    await _managerService.RescheduleMatchAsync(model.MatchId, model.MatchDate);
+                }
+
+                var dtos = await _managerService.GetUnplayedMatchesAsync();
+
+                var models = MapUnplayedMatchesModels(dtos);
+
+                return View(models);
             }
-            else
+            catch (Exception)
             {
-                await _managerService.RescheduleMatchAsync(model.MatchId, model.MatchDate);
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.RescheduleError});
             }
-
-            var dtos = await _managerService.GetUnplayedMatchesAsync();
-
-            var models = MapUnplayedMatchesModels(dtos);
-
-            return View(models);
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateResult()
         {
-            var dtos = await _managerService.GetMatchesForUpdateAsync();
+            try
+            {
+                var dtos = await _managerService.GetMatchesForUpdateAsync();
 
-            var models = MapUpdateMatchModels(dtos);
+                var models = MapUpdateMatchModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError});
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateResult(UpdateMatchResultModel model)
         {
-            await _managerService.UpdateMatchScoreAsync(model.MatchId, model.HomeTeamPoints, model.AwayTeamPoints);
+            try
+            {
+                await _managerService.UpdateMatchScoreAsync(model.MatchId, model.HomeTeamPoints, model.AwayTeamPoints);
 
-            var dtos = await _managerService.GetMatchesForUpdateAsync();
+                var dtos = await _managerService.GetMatchesForUpdateAsync();
 
-            var models = MapUpdateMatchModels(dtos);
+                var models = MapUpdateMatchModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.UpdateResultError });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> RemoveMatch()
         {
-            var dtos = await _managerService.GetUnplayedMatchesAsync();
+            try
+            {
+                var dtos = await _managerService.GetUnplayedMatchesAsync();
 
-            var models = MapUnplayedMatchesModels(dtos);
+                var models = MapUnplayedMatchesModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveMatch(int matchId)
         {
-            await _managerService.RemoveMatch(matchId);
+            try
+            {
+                await _managerService.RemoveMatch(matchId);
 
-            var dtos = await _managerService.GetUnplayedMatchesAsync();
+                var dtos = await _managerService.GetUnplayedMatchesAsync();
 
-            var models = MapUnplayedMatchesModels(dtos);
+                var models = MapUnplayedMatchesModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.RemoveMatchError });
+            }
         }
 
         private static IEnumerable<TeamShortInfoModel> MapAllTeams(IEnumerable<TeamShortInfoDTO> dtos)

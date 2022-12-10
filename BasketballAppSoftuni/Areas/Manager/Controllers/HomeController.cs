@@ -8,5 +8,11 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         {
             return View();
         }
+
+        public IActionResult Error(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
     }
 }
