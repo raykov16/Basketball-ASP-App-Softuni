@@ -1,6 +1,7 @@
 ﻿using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.DTOs.PlayerDTOs;
 using BasketballAppSoftuni.Models.PlayerModels;
+using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasketballAppSoftuni.Controllers
@@ -15,35 +16,49 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> AllPlayers(string nameSearchCriteria,string position)
         {
-            var dtos = await _playerService.GetAllAsync();
-            var models = MapAllPlayersModels(dtos);
-
-            if (nameSearchCriteria != null)
+            try
             {
-                nameSearchCriteria = nameSearchCriteria.ToLower();
-                models = models
-                    .Where(p => p.FullName.ToLower().StartsWith(nameSearchCriteria))
-                    .ToList();
-            }
+                var dtos = await _playerService.GetAllAsync();
+                var models = MapAllPlayersModels(dtos);
 
-            if (position != null)
+                if (nameSearchCriteria != null)
+                {
+                    nameSearchCriteria = nameSearchCriteria.ToLower();
+                    models = models
+                        .Where(p => p.FullName.ToLower().StartsWith(nameSearchCriteria))
+                        .ToList();
+                }
+
+                if (position != null)
+                {
+                    position = position.ToLower();
+                    models = models.
+                        Where(p => p.Position.ToLower() == position)
+                        .ToList();
+                }
+
+                return View(models);
+            }
+            catch (Exception)
             {
-                position = position.ToLower();
-                models = models.
-                    Where(p => p.Position.ToLower() == position)
-                    .ToList();
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllPlayersError });
             }
-
-            return View(models);
         }
 
         public async Task<IActionResult> PlayerDetails(int playerId)
         {
-            var d = await _playerService.GetAsync(playerId);
+            try
+            {
+                var d = await _playerService.GetAsync(playerId);
 
-            var model = MapPlayerModel(d);
+                var model = MapPlayerModel(d);
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
+            }
         }
 
         private static IEnumerable<PlayerTeamAndPositionViewModel> MapAllPlayersModels(List<PlayerTeamAndPositionDTO> dtos)

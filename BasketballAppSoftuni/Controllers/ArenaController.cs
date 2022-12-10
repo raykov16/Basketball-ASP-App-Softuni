@@ -1,5 +1,6 @@
 ﻿using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.Models.ArenaViewModels;
+using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasketballAppSoftuni.Controllers
@@ -14,33 +15,48 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> AllArenas()
         {
-            var dtos = await _arenaService.GetAllAsync();
+            try
+            {
+                var dtos = await _arenaService.GetAllAsync();
 
-            IEnumerable<ArenaDetailsViewModel> models = dtos
-                .Select(d => new ArenaDetailsViewModel
-                {
-                    Location = d.Location,
-                    Name = d.Name,
-                    PictureURL = d.PictureURL,
-                    Seats = d.Seats
-                });
+                IEnumerable<ArenaDetailsViewModel> models = dtos
+               .Select(d => new ArenaDetailsViewModel
+               {
+                   Location = d.Location,
+                   Name = d.Name,
+                   PictureURL = d.PictureURL,
+                   Seats = d.Seats
+               });
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllArenasError });
+            }
         }
 
         public async Task<IActionResult> ArenaDetails(int arenaId)
         {
-            var dto = await _arenaService.GetAsync(arenaId);
-
-            var model = new ArenaDetailsViewModel
+            try
             {
-                Location = dto.Location,
-                Name = dto.Name,
-                PictureURL = dto.PictureURL,
-                Seats = dto.Seats
-            };
+                var dto = await _arenaService.GetAsync(arenaId);
 
-            return View(model);
+                var model = new ArenaDetailsViewModel
+                {
+                    Location = dto.Location,
+                    Name = dto.Name,
+                    PictureURL = dto.PictureURL,
+                    Seats = dto.Seats
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.ArenaError });
+            }
+
         }
     }
 }

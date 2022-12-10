@@ -4,6 +4,7 @@ using BasketballAppSoftuni.Models.TeamsModels;
 using Microsoft.AspNetCore.Mvc;
 using BasketballAppSoftuni.Data.Entities;
 using BasketballAppSoftuni.Models.PlayerModels;
+using BasketballAppSoftuni.Web.Constants;
 
 namespace BasketballAppSoftuni.Controllers
 {
@@ -19,20 +20,34 @@ namespace BasketballAppSoftuni.Controllers
         [HttpGet]
         public async Task<IActionResult> AllTeams()
         {
-            List<TeamShortInfoDTO> dtos = await _teamService.GetAllAsync();
+            try
+            {
+                List<TeamShortInfoDTO> dtos = await _teamService.GetAllAsync();
 
-            var models = MapAllTeamsModels(dtos);
+                var models = MapAllTeamsModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllTeamsError });
+            }
         }
 
         public async Task<IActionResult> TeamDetails(int teamId)
         {
-            TeamDetailsDTO d = await _teamService.GetAsync(teamId);
+            try
+            {
+                TeamDetailsDTO d = await _teamService.GetAsync(teamId);
 
-            var model = MapTeamDetailsModel(d);
+                var model = MapTeamDetailsModel(d);
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.TeamError });
+            }
         }
 
         private static IEnumerable<TeamShortInfoViewModel> MapAllTeamsModels(List<TeamShortInfoDTO> dtos)

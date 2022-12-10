@@ -1,6 +1,7 @@
 ﻿using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.DTOs.TicketDTOs;
 using BasketballAppSoftuni.Models.TicketViewModels;
+using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -20,11 +21,19 @@ namespace BasketballAppSoftuni.Controllers
 		[HttpGet]
 		public async Task<IActionResult> BuyTickets(int matchId)
 		{
-			var dto = await _ticketService.CreateTicketAsync(matchId);
+			try
+			{
+                var dto = await _ticketService.CreateTicketAsync(matchId);
 
-			var ticketModel = MapTicketModel(dto);
+                var ticketModel = MapTicketModel(dto);
 
-			return View(ticketModel);
+                return View(ticketModel);
+            }
+			catch (Exception)
+			{
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.GetTicketError });
+			}
+			
 		}
 		
 		[HttpPost]
@@ -35,10 +44,18 @@ namespace BasketballAppSoftuni.Controllers
                 return View(model);
             }
 
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-			await _ticketService.BuyTicketsAsync(userId, model.MatchId, model.Quantity);
+			try
+			{
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                await _ticketService.BuyTicketsAsync(userId, model.MatchId, model.Quantity);
 
-            return RedirectToAction("MyMatches", "Match");
+                return RedirectToAction("MyMatches", "Match");
+            }
+			catch (Exception)
+			{
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.BuyTicketError });
+            }
+            
 		}
 
         private static TicketViewModel MapTicketModel(TicketDTO dto)

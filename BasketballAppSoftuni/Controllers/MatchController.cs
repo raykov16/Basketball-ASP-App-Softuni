@@ -3,6 +3,7 @@ using BasketballAppSoftuni.DTOs.MatchDTOs;
 using BasketballAppSoftuni.DTOs.TeamDTOs;
 using BasketballAppSoftuni.Models.MatchViewModels;
 using BasketballAppSoftuni.Models.TeamsModels;
+using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -14,7 +15,7 @@ namespace BasketballAppSoftuni.Controllers
         private readonly IMatchService _matchService;
         private readonly ITeamService _teamService;
 
-        public MatchController(IMatchService matchService,ITeamService teamService)
+        public MatchController(IMatchService matchService, ITeamService teamService)
         {
             _matchService = matchService;
             _teamService = teamService;
@@ -22,65 +23,84 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> AllMatches(int teamId)
         {
-            var matchDTOs = await _matchService.AllMatchesAsync();
-            var matchModels = MapMatchTableModels(matchDTOs);
-
-            if (teamId > 0)
+            try
             {
-                matchModels = matchModels
-                    .Where(m => m.HomeTeamId == teamId || m.AwayTeamId == teamId)
-                    .ToList();
+                var matchDTOs = await _matchService.AllMatchesAsync();
+                var matchModels = MapMatchTableModels(matchDTOs);
+
+                if (teamId > 0)
+                {
+                    matchModels = matchModels
+                        .Where(m => m.HomeTeamId == teamId || m.AwayTeamId == teamId)
+                        .ToList();
+                }
+
+                var teamDTOs = await _teamService.GetAllAsync();
+                var teamModels = MapTeamModels(teamDTOs);
+
+                var model = new AllMatchesViewModel()
+                {
+                    matchModels = matchModels,
+                    teamModels = teamModels
+                };
+
+                return View(model);
             }
-
-            var teamDTOs = await _teamService.GetAllAsync();
-            var teamModels = MapTeamModels(teamDTOs);
-
-            var model = new AllMatchesViewModel()
+            catch (Exception)
             {
-                matchModels = matchModels,
-                teamModels = teamModels
-            };
-
-            return View(model);
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
+            }
         }
 
         [Authorize]
         public async Task<IActionResult> MatchesWithTickets(int teamId)
         {
-            var matchDTOs = await _matchService.GetMatchesWithTicketsAsync();
-            var matchModels = MapMatchBuyTicketModels(matchDTOs);
-
-            if (teamId > 0)
+            try
             {
-                matchModels = matchModels
-                    .Where(m => m.HomeTeamId == teamId || m.AwayTeamId == teamId)
-                    .ToList();
+                var matchDTOs = await _matchService.GetMatchesWithTicketsAsync();
+                var matchModels = MapMatchBuyTicketModels(matchDTOs);
+
+                if (teamId > 0)
+                {
+                    matchModels = matchModels
+                        .Where(m => m.HomeTeamId == teamId || m.AwayTeamId == teamId)
+                        .ToList();
+                }
+
+                var teamDTOs = await _teamService.GetAllAsync();
+                var teamModels = MapTeamModels(teamDTOs);
+
+                var model = new MatchesWithTicketsViewModel()
+                {
+                    matchModels = matchModels,
+                    teamModels = teamModels
+                };
+
+                return View(model);
             }
-
-            var teamDTOs = await _teamService.GetAllAsync();
-            var teamModels = MapTeamModels(teamDTOs);
-
-            var model = new MatchesWithTicketsViewModel()
+            catch (Exception)
             {
-                matchModels = matchModels,
-                teamModels = teamModels
-            };
-
-            return View(model);
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
+            }
         }
 
         [Authorize]
         public async Task<IActionResult> MyMatches()
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            var dtos = await _matchService.GetMyMatchesAsync(userId);
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                var dtos = await _matchService.GetMyMatchesAsync(userId);
 
-            var models = MapMyMatchesModels(dtos);
+                var models = MapMyMatchesModels(dtos);
 
-            return View(models);
+                return View(models);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
+            }
         }
-
-       
 
         private static IEnumerable<TeamShortInfoViewModel> MapTeamModels(List<TeamShortInfoDTO> teamDtos)
         {
