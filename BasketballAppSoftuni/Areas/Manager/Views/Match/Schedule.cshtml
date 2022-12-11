@@ -47,7 +47,7 @@
 
 							<div class="form-outline form-white mb-4">
 								<label asp-for="@Model.TicketPrice" class="form-label">Ticket price</label>
-								<input asp-for="@Model.TicketPrice" class="form-control" aria-required="true" type="number" min="1" />
+								<input asp-for="@Model.TicketPrice" class="form-control" aria-required="true" type="number" min="0.00" max="120.00" />
 								<span asp-validation-for="TicketPrice" class="text-danger"></span>
 							</div>
 
@@ -61,3 +61,6 @@
 	</div>
 </div>
 
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

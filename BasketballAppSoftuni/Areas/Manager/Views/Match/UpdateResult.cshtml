@@ -27,11 +27,13 @@ else
 					</td>
 					<form method="post">
 					<td class="text-center" style="padding-top: 1.3rem;">
-						<input type="number" min="0" name="HomeTeamPoints" />
+						<input type="number" min="0" max="250" name="HomeTeamPoints" />
+						<span asp-validation-for="@m.HomeTeamPoints" class="text-danger"></span>
 					</td>
 					<td class="text-center" style="padding-top: 1.3rem">:</td>
 					<td class="text-center" style="padding-top: 1.3rem;">
-						<input type="number" min="0" name="AwayTeamPoints" />
+						<input type="number" min="0" max="250" name="AwayTeamPoints" />
+						<span asp-validation-for="@m.AwayTeamPoints" class="text-danger"></span>
 						<input type="hidden" value="@m.MatchId" name="MatchId" />
 					</td>
 					<td class="text-end" style="padding-top:  1.3rem;">
@@ -48,4 +50,8 @@ else
 			}
 		</tbody>
 	</table>
+}
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
 }

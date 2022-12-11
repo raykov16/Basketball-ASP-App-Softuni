@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BasketballAppSoftuni.Models
+namespace BasketballAppSoftuni.Web.Models.UserAccountViewModels
 {
     public class LoginViewModel
     {

@@ -13,6 +13,7 @@ namespace BasketballAppSoftuni.Areas.Manager.Models
         [Required(ErrorMessage = "Match time is requierd!")]
         public string MatchTime { get; set; }
         [Required]
+        [Range(typeof(decimal),"0.00","120.00")]
         public decimal TicketPrice { get; set; }
 
         public IEnumerable<TeamShortInfoModel>? AllTeams { get; set; } 

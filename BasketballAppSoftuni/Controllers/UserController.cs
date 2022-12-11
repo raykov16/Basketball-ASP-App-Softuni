@@ -1,5 +1,5 @@
 ﻿using BasketballAppSoftuni.Data.Entities;
-using BasketballAppSoftuni.Models;
+using BasketballAppSoftuni.Web.Models.UserAccountViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

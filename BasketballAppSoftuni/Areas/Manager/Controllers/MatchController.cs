@@ -48,6 +48,7 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
                     return View(model);
                 }
 
+
                 bool invalidTeams = AreTeamsValid(model);
                 bool invalidDate = IsDateValid(model);
 
