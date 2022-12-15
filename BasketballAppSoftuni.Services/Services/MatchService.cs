@@ -1,5 +1,6 @@
 ﻿using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.Data;
+using BasketballAppSoftuni.Data.Entities;
 using BasketballAppSoftuni.DTOs.MatchDTOs;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ namespace BasketballAppSoftuni.Services
             _context = context;
         }
 
-        public async Task<List<MatchTableDTO>> AllMatchesAsync()
+        public async Task<List<MatchTableDTO>> GetAllMatchesAsync()
         {
             return await _context.Matches
                 .OrderBy(m => m.GameDate)
@@ -53,34 +54,43 @@ namespace BasketballAppSoftuni.Services
 
         public async Task<List<MyMatchesDTO>> GetMyMatchesAsync(string userId)
         {
-            var user = await _context.Users
-            .Include(u => u.UserMatches)
-            .ThenInclude(um => um.Match)
-            .ThenInclude(m => m.HomeTeam)
-            .ThenInclude(ht => ht.Arena)
-            .Include(u => u.UserMatches)
-            .ThenInclude(um => um.Match)
-            .ThenInclude(m => m.AwayTeam)
-            .Where(u => u.Id == userId)
-            .FirstOrDefaultAsync();
+            var user = await GetUser(userId);
 
-            var myMatchesModels = user.UserMatches
-           .Select(um => new MyMatchesDTO()
-           {
-               MatchDate = um.Match.GameDate.ToString("dddd, dd MMMM yyyy hh:mm tt"),
-               ArenaName = um.Match.HomeTeam.Arena.Name,
-               ArenaLocation = um.Match.HomeTeam.Arena.Location,
-               AwayTeamLogo = um.Match.AwayTeam.LogoURL,
-               AwayTeamName=um.Match.AwayTeam.Name,
-               AwayTeamPoints = um.Match.AwayTeamPoints,
-               HomeTeamLogo = um.Match.HomeTeam.LogoURL,
-               HomeTeamName = um.Match.HomeTeam.Name,
-               HomeTeamPoints = um.Match.HomeTeamPoints
-           })
-           .OrderBy(m => m.MatchDate)
-           .ToList();
+            List<MyMatchesDTO> myMatchesModels = MapMatchesModels(user.UserMatches);
 
             return myMatchesModels;
+        }
+
+        private async Task<MyUser> GetUser(string userId)
+        {
+            return await _context.Users
+                        .Include(u => u.UserMatches)
+                        .ThenInclude(um => um.Match)
+                        .ThenInclude(m => m.HomeTeam)
+                        .ThenInclude(ht => ht.Arena)
+                        .Include(u => u.UserMatches)
+                        .ThenInclude(um => um.Match)
+                        .ThenInclude(m => m.AwayTeam)
+                        .Where(u => u.Id == userId)
+                        .FirstAsync();
+        }
+        private List<MyMatchesDTO> MapMatchesModels(List<UserMatch> userMatches)
+        {
+            return  userMatches
+                     .Select(um => new MyMatchesDTO()
+                     {
+                         MatchDate = um.Match.GameDate.ToString("dddd, dd MMMM yyyy hh:mm tt"),
+                         ArenaName = um.Match.HomeTeam.Arena.Name,
+                         ArenaLocation = um.Match.HomeTeam.Arena.Location,
+                         AwayTeamLogo = um.Match.AwayTeam.LogoURL,
+                         AwayTeamName = um.Match.AwayTeam.Name,
+                         AwayTeamPoints = um.Match.AwayTeamPoints,
+                         HomeTeamLogo = um.Match.HomeTeam.LogoURL,
+                         HomeTeamName = um.Match.HomeTeam.Name,
+                         HomeTeamPoints = um.Match.HomeTeamPoints
+                     })
+                       .OrderBy(m => m.MatchDate)
+                       .ToList();
         }
     }
 }

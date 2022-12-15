@@ -5,16 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 using BasketballAppSoftuni.Data.Entities;
 using BasketballAppSoftuni.Models.PlayerModels;
 using BasketballAppSoftuni.Web.Constants;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BasketballAppSoftuni.Controllers
 {
     public class TeamController : Controller
     {
         private readonly ITeamService _teamService;
-
-        public TeamController(ITeamService teamService)
+        private readonly IMemoryCache _cache;
+        public TeamController(ITeamService teamService, IMemoryCache cache)
         {
             _teamService = teamService;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -22,9 +24,18 @@ namespace BasketballAppSoftuni.Controllers
         {
             try
             {
-                List<TeamShortInfoDTO> dtos = await _teamService.GetAllAsync();
+                var models = _cache.Get<IEnumerable<TeamShortInfoViewModel>>(CacheKeys.AllTeamsKey);
 
-                var models = MapAllTeamsModels(dtos);
+                if (models == null)
+                {
+                    var dtos = await _teamService.GetAllAsync();
+                    models = MapAllTeamsModels(dtos);
+
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(40));
+
+                    _cache.Set(CacheKeys.AllTeamsKey, models, cacheOptions);
+                }
 
                 return View(models);
             }
@@ -38,9 +49,9 @@ namespace BasketballAppSoftuni.Controllers
         {
             try
             {
-                TeamDetailsDTO d = await _teamService.GetAsync(teamId);
+                var dto = await _teamService.GetAsync(teamId);
 
-                var model = MapTeamDetailsModel(d);
+                var model = MapTeamDetailsModel(dto);
 
                 return View(model);
             }

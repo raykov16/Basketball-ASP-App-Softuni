@@ -28,6 +28,16 @@ namespace BasketballAppSoftuni.Services
 
         public async Task<TeamDetailsDTO> GetAsync(int teamId)
         {
+            var players = await _context.Players
+                .Where(p => p.TeamId == teamId)
+                .Select(p => new PlayerShortInfoDTO
+                {
+                    FullName = p.FirstName + " " + p.LastName,
+                    Id = p.Id,
+                    PictureURL = p.PictureURL
+                })
+                .ToListAsync();
+
             return await _context.Teams
             .Where(t => t.Id == teamId)
             .Select(t => new TeamDetailsDTO
@@ -39,15 +49,7 @@ namespace BasketballAppSoftuni.Services
                 LogoURL = t.LogoURL,
                 Loses = t.Loses,
                 Wins = t.Wins,
-                Players = _context.Players
-                .Where(p => p.TeamId == t.Id)
-                .Select(p => new PlayerShortInfoDTO
-                {
-                    FullName = p.FirstName + " " + p.LastName,
-                    Id = p.Id,
-                    PictureURL = p.PictureURL
-                })
-                .ToList()
+                Players = players
             })
             .SingleAsync();
         }

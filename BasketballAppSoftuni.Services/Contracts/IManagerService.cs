@@ -10,6 +10,6 @@ namespace BasketballAppSoftuni.Contracts
         public Task<IEnumerable<UpdateMatchResultDTO>> GetMatchesForUpdateAsync();
         public Task RescheduleMatchAsync(int matchId, DateTime date);
         public Task UpdateMatchScoreAsync(int matchId, int homeTeamPoints, int awayTeamPoitns);
-        public Task RemoveMatch(int matchId);
+        public Task RemoveMatchAsync(int matchId);
     }
 }

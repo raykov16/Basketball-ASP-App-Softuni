@@ -5,11 +5,13 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasketballAppSoftuni.Web", "BasketballAppSoftuni\BasketballAppSoftuni.Web.csproj", "{C6E8A8DF-DE4C-42DD-BD29-174A1CAD97E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballAppSoftuni.Data", "BasketballAppSoftuni.Data\BasketballAppSoftuni.Data.csproj", "{A4F97DB6-9D12-48FA-9A52-2FB75B50BCD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasketballAppSoftuni.Data", "BasketballAppSoftuni.Data\BasketballAppSoftuni.Data.csproj", "{A4F97DB6-9D12-48FA-9A52-2FB75B50BCD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballAppSoftuni.Services", "BasketballAppSoftuni.Services\BasketballAppSoftuni.Services.csproj", "{E9AD5BC9-770A-4E48-92F3-13429049C82F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasketballAppSoftuni.Services", "BasketballAppSoftuni.Services\BasketballAppSoftuni.Services.csproj", "{E9AD5BC9-770A-4E48-92F3-13429049C82F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballAppSoftuni.DTOs", "BasketballAppSoftuni.DTOs\BasketballAppSoftuni.DTOs.csproj", "{55F446CF-1F12-4366-8BA1-E33E12DCD8B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasketballAppSoftuni.DTOs", "BasketballAppSoftuni.DTOs\BasketballAppSoftuni.DTOs.csproj", "{55F446CF-1F12-4366-8BA1-E33E12DCD8B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballAppSoftuni.Tests", "BasketballAppSoftuni.Tests\BasketballAppSoftuni.Tests.csproj", "{2FEC91B1-A1E4-4B19-B003-12627D92729D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{55F446CF-1F12-4366-8BA1-E33E12DCD8B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55F446CF-1F12-4366-8BA1-E33E12DCD8B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55F446CF-1F12-4366-8BA1-E33E12DCD8B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FEC91B1-A1E4-4B19-B003-12627D92729D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FEC91B1-A1E4-4B19-B003-12627D92729D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FEC91B1-A1E4-4B19-B003-12627D92729D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FEC91B1-A1E4-4B19-B003-12627D92729D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

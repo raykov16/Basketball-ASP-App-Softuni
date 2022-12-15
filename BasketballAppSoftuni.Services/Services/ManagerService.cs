@@ -15,28 +15,28 @@ namespace BasketballAppSoftuni.Services
             _context = context;
         }
 
-        public async Task AddMatchAsync(ScheduleMatchDTO model)
+        public async Task AddMatchAsync(ScheduleMatchDTO dto)
         {
             Team homeTeam = await _context.Teams
                 .Include(t => t.Arena)
-                .Where(t => t.Id == model.HomeTeamId)
+                .Where(t => t.Id == dto.HomeTeamId)
                 .SingleAsync();
 
             Team awayTeam = await _context.Teams
-                .Where(t => t.Id == model.AwayTeamId)
+                .Where(t => t.Id == dto.AwayTeamId)
                 .SingleAsync();
 
             Match match = new Match()
             {
-                AwayTeamId = model.AwayTeamId,
+                AwayTeamId = dto.AwayTeamId,
                 HomeTeamId = homeTeam.Id,
                 Arena = homeTeam.Arena,
                 ArenaId = homeTeam.ArenaId,
                 AwayTeam = awayTeam,
                 TicketsAvailable = homeTeam.Arena.Seats,
-                GameDate = model.MatchDate,
+                GameDate = dto.MatchDate,
                 HomeTeam = homeTeam,
-                TicketPrice = model.TicketPrice,
+                TicketPrice = dto.TicketPrice,
             };
 
             _context.Matches.Add(match);
@@ -56,7 +56,8 @@ namespace BasketballAppSoftuni.Services
 
         public async Task<IEnumerable<RescheduleMatchDTO>> GetUnplayedMatchesAsync()
         {
-            return await _context.Matches.Where(m => m.HomeTeamPoints == null && m.GameDate > DateTime.Now)
+            return await _context.Matches
+                .Where(m => m.HomeTeamPoints == null && m.GameDate > DateTime.Now)
                 .Select(m => new RescheduleMatchDTO
                 {
                     MatchId = m.Id,
@@ -103,7 +104,7 @@ namespace BasketballAppSoftuni.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveMatch(int matchId)
+        public async Task RemoveMatchAsync(int matchId)
         {
             var match = _context.Matches.Find(matchId);
 

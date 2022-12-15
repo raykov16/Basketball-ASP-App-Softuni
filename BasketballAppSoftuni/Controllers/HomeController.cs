@@ -15,10 +15,9 @@ namespace BasketballAppSoftuni.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allUpcomingMatches = await _matchService.GetMatchesWithTicketsAsync();
-
             try
             {
+                var allUpcomingMatches = await _matchService.GetMatchesWithTicketsAsync();
                 var top5Upcoming = allUpcomingMatches
                 .Take(5)
                 .Select(m => new MatchBuyTicketViewModel
@@ -33,11 +32,12 @@ namespace BasketballAppSoftuni.Controllers
                     HomeTeamName = m.HomeTeamName,
                     MatchId = m.MatchId
                 });
+
                 return View(top5Upcoming);
             }
             catch (Exception)
             {
-               return RedirectToAction("Error","Home", new { message = ErrorMessages.AllMatchesError});
+                return RedirectToAction("Error", "Home", new { message = ErrorMessages.AllMatchesError });
             }
 
         }

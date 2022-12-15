@@ -21,6 +21,7 @@ builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();

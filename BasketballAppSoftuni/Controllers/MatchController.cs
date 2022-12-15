@@ -6,6 +6,7 @@ using BasketballAppSoftuni.Models.TeamsModels;
 using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 
 namespace BasketballAppSoftuni.Controllers
@@ -14,19 +15,31 @@ namespace BasketballAppSoftuni.Controllers
     {
         private readonly IMatchService _matchService;
         private readonly ITeamService _teamService;
+        private readonly IMemoryCache _cache;
 
-        public MatchController(IMatchService matchService, ITeamService teamService)
+        public MatchController(IMatchService matchService, ITeamService teamService, IMemoryCache cache)
         {
             _matchService = matchService;
             _teamService = teamService;
+            _cache = cache;
         }
 
         public async Task<IActionResult> AllMatches(int teamId)
         {
             try
             {
-                var matchDTOs = await _matchService.AllMatchesAsync();
-                var matchModels = MapMatchTableModels(matchDTOs);
+                var matchModels = _cache.Get<IEnumerable<MatchTableViewModel>>(CacheKeys.AllMatchesKey);
+
+                if (matchModels == null)
+                {
+                    var matchDTOs = await _matchService.GetAllMatchesAsync();
+                    matchModels = MapMatchTableModels(matchDTOs);
+
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                      .SetSlidingExpiration(TimeSpan.FromSeconds(40));
+
+                    _cache.Set(CacheKeys.AllMatchesKey, matchModels, cacheOptions);
+                }
 
                 if (teamId > 0)
                 {
@@ -35,8 +48,18 @@ namespace BasketballAppSoftuni.Controllers
                         .ToList();
                 }
 
-                var teamDTOs = await _teamService.GetAllAsync();
-                var teamModels = MapTeamModels(teamDTOs);
+                var teamModels = _cache.Get<IEnumerable<TeamShortInfoViewModel>>(CacheKeys.AllTeamsKey);
+
+                if (teamModels == null)
+                {
+                    var dtos = await _teamService.GetAllAsync();
+                    teamModels = MapTeamModels(dtos);
+
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(40));
+
+                    _cache.Set(CacheKeys.AllTeamsKey, teamModels, cacheOptions);
+                }
 
                 var model = new AllMatchesViewModel()
                 {
@@ -67,8 +90,18 @@ namespace BasketballAppSoftuni.Controllers
                         .ToList();
                 }
 
-                var teamDTOs = await _teamService.GetAllAsync();
-                var teamModels = MapTeamModels(teamDTOs);
+                var teamModels = _cache.Get<IEnumerable<TeamShortInfoViewModel>>(CacheKeys.AllTeamsKey);
+
+                if (teamModels == null)
+                {
+                    var dtos = await _teamService.GetAllAsync();
+                    teamModels = MapTeamModels(dtos);
+
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(40));
+
+                    _cache.Set(CacheKeys.AllTeamsKey, teamModels, cacheOptions);
+                }
 
                 var model = new MatchesWithTicketsViewModel()
                 {

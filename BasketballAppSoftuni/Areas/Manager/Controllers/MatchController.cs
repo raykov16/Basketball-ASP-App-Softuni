@@ -3,15 +3,18 @@ using BasketballAppSoftuni.Contracts;
 using BasketballAppSoftuni.DTOs.ManagerAreaDTOs;
 using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BasketballAppSoftuni.Areas.Manager.Controllers
 {
     public class MatchController : ManagerBaseController
     {
         private readonly IManagerService _managerService;
-        public MatchController(IManagerService managerService)
+        private readonly IMemoryCache _cache;
+        public MatchController(IManagerService managerService,IMemoryCache cache)
         {
             _managerService = managerService;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -62,6 +65,9 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
 
                     await _managerService.AddMatchAsync(dto);
 
+                    _cache.Remove(CacheKeys.AllMatchesKey);
+
+                    TempData["message"] = "You have succsessfully scheduled a match!";
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -102,11 +108,14 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
                 else
                 {
                     await _managerService.RescheduleMatchAsync(model.MatchId, model.MatchDate);
+                    _cache.Remove(CacheKeys.AllMatchesKey);
                 }
 
                 var dtos = await _managerService.GetUnplayedMatchesAsync();
 
                 var models = MapUnplayedMatchesModels(dtos);
+
+                TempData["message"] = "You have succsessfully rescheduled a match!";
 
                 return View(models);
             }
@@ -139,11 +148,13 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
             try
             {
                 await _managerService.UpdateMatchScoreAsync(model.MatchId, model.HomeTeamPoints, model.AwayTeamPoints);
+                _cache.Remove(CacheKeys.AllMatchesKey);
 
                 var dtos = await _managerService.GetMatchesForUpdateAsync();
 
                 var models = MapUpdateMatchModels(dtos);
 
+                TempData["message"] = "You have succsessfully updated the result!";
                 return View(models);
             }
             catch (Exception)
@@ -174,12 +185,13 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
         {
             try
             {
-                await _managerService.RemoveMatch(matchId);
+                await _managerService.RemoveMatchAsync(matchId);
 
                 var dtos = await _managerService.GetUnplayedMatchesAsync();
 
                 var models = MapUnplayedMatchesModels(dtos);
 
+                TempData["message"] = "You have succsessfully removed the match!";
                 return View(models);
             }
             catch (Exception)

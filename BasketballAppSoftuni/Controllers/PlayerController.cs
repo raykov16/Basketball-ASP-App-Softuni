@@ -3,23 +3,37 @@ using BasketballAppSoftuni.DTOs.PlayerDTOs;
 using BasketballAppSoftuni.Models.PlayerModels;
 using BasketballAppSoftuni.Web.Constants;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BasketballAppSoftuni.Controllers
 {
     public class PlayerController : Controller
     {
         private readonly IPlayerService _playerService;
-        public PlayerController(IPlayerService playerService)
+        private readonly IMemoryCache _cache;
+        public PlayerController(IPlayerService playerService,IMemoryCache cache)
         {
             _playerService = playerService;
+            _cache = cache;
         }
 
         public async Task<IActionResult> AllPlayers(string nameSearchCriteria,string position)
         {
             try
             {
-                var dtos = await _playerService.GetAllAsync();
-                var models = MapAllPlayersModels(dtos);
+                var models = _cache.Get<IEnumerable<PlayerTeamAndPositionViewModel>>(CacheKeys.AllPlayersKey);
+
+                if (models == null)
+                {
+                    var dtos = await _playerService.GetAllAsync();
+                    models = MapAllPlayersModels(dtos);
+
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(40));
+
+                    _cache.Set(CacheKeys.AllPlayersKey, models, cacheOptions);
+                }
+                
 
                 if (nameSearchCriteria != null)
                 {
