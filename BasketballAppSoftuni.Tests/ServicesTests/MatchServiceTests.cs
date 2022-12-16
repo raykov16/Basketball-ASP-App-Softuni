@@ -98,7 +98,7 @@ namespace BasketballAppSoftuni.Tests.ServicesTests
                     HomeTeamId = 1,
                     AwayTeamId = 2,
                     ArenaId = 1,
-                    GameDate = DateTime.Now,
+                    GameDate = DateTime.Now.AddDays(10),
                     TicketsAvailable = 10
                 },
                  new Match()

@@ -11,6 +11,7 @@ namespace BasketballAppSoftuni.Controllers
     {
         private readonly IArenaService _arenaService;
         private readonly IMemoryCache _cache;
+
         public ArenaController(IArenaService arenaService, IMemoryCache cache)
         {
             _arenaService = arenaService;

@@ -1,6 +1,4 @@
 ﻿using BasketballAppSoftuni.Data.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using BasketballAppSoftuni.Models.PlayerModels;
 
 namespace BasketballAppSoftuni.Models.TeamsModels

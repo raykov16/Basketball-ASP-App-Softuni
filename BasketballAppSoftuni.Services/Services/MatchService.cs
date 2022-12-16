@@ -35,7 +35,7 @@ namespace BasketballAppSoftuni.Services
         public async Task<List<MatchBuyTicketDTO>> GetMatchesWithTicketsAsync()
         {
             return await _context.Matches
-                .Where(m => m.TicketsAvailable > 0)
+                .Where(m => m.TicketsAvailable > 0 && m.GameDate > DateTime.Now)
                 .OrderBy(m => m.GameDate)
                 .Select(m => new MatchBuyTicketDTO()
                 {

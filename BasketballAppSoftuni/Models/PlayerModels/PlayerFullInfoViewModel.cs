@@ -1,8 +1,4 @@
-﻿using BasketballAppSoftuni.Data.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace BasketballAppSoftuni.Models.PlayerModels
+﻿namespace BasketballAppSoftuni.Models.PlayerModels
 {
     public class PlayerFullInfoViewModel
     {

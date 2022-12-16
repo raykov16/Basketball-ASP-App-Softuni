@@ -11,6 +11,7 @@ namespace BasketballAppSoftuni.Areas.Manager.Controllers
     {
         private readonly IManagerService _managerService;
         private readonly IMemoryCache _cache;
+        
         public MatchController(IManagerService managerService,IMemoryCache cache)
         {
             _managerService = managerService;
